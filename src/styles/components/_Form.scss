@@ -15,3 +15,11 @@
     padding: 1rem;
     border-radius: 4px;
 }
+
+.form__close {
+    align-self: flex-end;
+    &:hover {
+        color: red;
+        cursor: pointer;
+    }
+}

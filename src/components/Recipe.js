@@ -11,19 +11,20 @@ class Recipe extends Component {
     }
     
     render() {
-        const { picSrc, description, alt } = this.props;
+        const { picSrc, instructions, alt, title } = this.props;
         const ingredients = this.props.ingredients.map((item, i) => {
             return <li key={i}>{ item }</li>
         })
         return(
             <div className='card'>
                 <img src={picSrc} alt={alt} className='card__img' />
-                <h4><u>ingredients</u></h4>
+                <h2 className='card__title'>{title}</h2>
+                <h4><u>Ingredients</u></h4>
                 <ul className='card__ingredientList'>
                     {ingredients}
                 </ul>
-                <h4><u>Description</u></h4>
-                <p className='card__description'>{description}</p>
+                <h4><u>Instructions</u></h4>
+                <p className='card__description'>{instructions}</p>
             </div>
         );
     }
