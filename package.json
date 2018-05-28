@@ -1,5 +1,5 @@
 {
-  "name": "expensify",
+  "name": "recipe-app",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Philip Kaim",
@@ -24,6 +24,7 @@
     "moment": "2.18.1",
     "node-sass": "4.5.3",
     "normalize.css": "7.0.0",
+    "prop-types": "^15.6.1",
     "react": "16.0.0",
     "react-addons-shallow-compare": "15.6.0",
     "react-dates": "12.7.0",
@@ -38,5 +39,15 @@
     "validator": "8.0.0",
     "webpack": "3.1.0",
     "webpack-dev-server": "2.5.1"
-  }
+  },
+  "description": "recipe app",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhilipKaim/recipe-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PhilipKaim/recipe-app/issues"
+  },
+  "homepage": "https://github.com/PhilipKaim/recipe-app#readme"
 }
