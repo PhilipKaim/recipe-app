@@ -15,15 +15,14 @@ class Recipe extends Component {
         const ingredients = this.props.ingredients.map((item, i) => {
             return <li key={i}>{ item }</li>
         })
-
-        console.log(ingredients);
-
         return(
             <div className='card'>
                 <img src={picSrc} alt={alt} className='card__img' />
-                <ol className='card__ingredientList'>
+                <h4><u>ingredients</u></h4>
+                <ul className='card__ingredientList'>
                     {ingredients}
-                </ol>
+                </ul>
+                <h4><u>Description</u></h4>
                 <p className='card__description'>{description}</p>
             </div>
         );

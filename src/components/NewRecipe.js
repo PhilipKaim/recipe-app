@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
-class Navbar extends Component {
+class NewRecipe extends Component {
+
     render() {
         return(
             <div>
-                <button>+ New Recipe</button>
+                <div className='newRecipe'>
+                    <button onClick={this.props.modal}>+ New Recipe</button>
+                </div>
             </div>
         )
     }
 }
 
-export default Navbar;
+export default NewRecipe;
