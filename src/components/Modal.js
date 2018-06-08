@@ -47,10 +47,37 @@ class Modal extends Component {
         });
     }
 
-    render() {
-        const ingredientList = this.state.ingredients.map((el, i) => {
-            return <li key={i}>{el}</li>
+    // REMOVING DELETE BUTTON WHEN DELETING FROM TOP DOWN!!!!
+    handleRemoveIngredient = (e) => {
+
+        const listItem = e.target.parentNode.childNodes[0].innerHTML;
+
+        const ingredients = this.state.ingredients.filter(el => {
+            return el !== listItem;
         });
+        
+        this.setState(() => {
+            return {
+                ingredients
+            }
+        })
+
+        e.target.remove();
+    }
+
+    render() {
+        const { edit } = this.props;
+
+        const ingredientList = this.state.ingredients.map((el, i) => {
+            return <div key={i}><li>{el}</li><span onClick={this.handleRemoveIngredient}>X</span></div>
+        });
+
+        // if (edit !== undefined) {
+
+        //     var editIngredientList = edit.ingredients.map((el, i) => {
+        //         return <div key={i}><li>{el}</li><span>X</span></div>
+        //     });
+        // }
 
         return (
             <div>
@@ -62,6 +89,7 @@ class Modal extends Component {
                         onChange={ this.handleOnChange }
                         name='url'
                         id='url'
+                        placeholder={this.state.url}
                     />
 
                     {/* title */}
@@ -77,15 +105,14 @@ class Modal extends Component {
                     <label htmlFor='ingredients'>Ingredients:</label>
                     
                     {/* entered ingredients */}
-                    <ul>
-                        {ingredientList}
+                    <ul id='list'>
+                        {edit !== undefined ? editIngredientList : ingredientList}
                     </ul>
 
                     <input
                         type='text'
                         onChange={ this.handleOnChange }
                         name='ingredient'
-                        value={ this.state.ingredient }
                         id='ingredient'
                     />
 

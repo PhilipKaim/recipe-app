@@ -20,6 +20,7 @@ class NewRecipeButton extends Component {
                         passState={ this.handlePassState }
                         closeModal={ this.props.closeModal }
                         id={ this.props.id }
+                        // edit={this.props.edit}
                     /> }
             </div>
         );

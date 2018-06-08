@@ -1,0 +1,43 @@
+.card {
+    width: 33.3%;
+    box-shadow: 3px 4px 2px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card__img {
+
+}
+
+.card__title {
+    text-align: center;
+}
+
+.card__list {
+
+}
+
+.card__instructions {
+    padding: 0 1rem;
+}
+
+.card__edit {
+    margin: 1rem;
+    border-radius: 4px;
+    padding: 0.3em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.card__delete {
+    margin: 0 1rem 1rem 1rem;
+    border-radius: 4px;
+    padding: 0.3em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

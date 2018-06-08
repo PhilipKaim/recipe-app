@@ -18,9 +18,18 @@ class RecipeApp extends Component {
         }
       ],
       nextId: 1,
-      modal: false
+      modal: false,
     }
   }
+
+  componentWillMount = () => {
+    localStorage.getItem('state') && this.setState(() => {
+      return {
+        recipes: JSON.parse(localStorage.getItem('state'))
+      }
+    });
+  }
+
 
   handleModalOpen = () => {
     this.setState(() => {
@@ -47,6 +56,10 @@ class RecipeApp extends Component {
         nextId: prevState.nextId + 1
       }
     });
+
+    setTimeout(() => {
+      localStorage.setItem('state', JSON.stringify(this.state.recipes));
+    }, 1000);
   }
 
   handleDelete = (id) => {
@@ -57,17 +70,22 @@ class RecipeApp extends Component {
         recipes
       }
     });
+
+    setTimeout(() => {
+      localStorage.setItem('state', JSON.stringify(this.state.recipes));
+    }, 300);
   }
 
-  // handleUpdate = (id) => {
-  //   const copy = this.state.recipes;
+  // handleUpdate = (recipe) => {
+  //   this.handleModalOpen();
+    
 
-  //   for (let i = 0; i < copy.length; i++) {
-  //     if (copy[i].id === id) {
-  //       copy.splice(i, 1, updatedRecipe);
-  //       break;
-  //     }
-  //   }
+  //   // for (let i = 0; i < copy.length; i++) {
+  //   //   if (copy[i].id === id) {
+  //   //     copy.splice(i, 1, updatedRecipe);
+  //   //     break;
+  //   //   }
+  //   // }
   // }
 
   render() {
@@ -86,8 +104,9 @@ class RecipeApp extends Component {
           addRecipe={ this.handleAddRecipe }
           modal={this.state.modal}
           openModal={ this.handleModalOpen }
-          closeModal = { this.handleModalClose }
-          id = { this.state.nextId }
+          closeModal={ this.handleModalClose }
+          id={ this.state.nextId }
+          edit={ this.state.edit }
         />
         {recipeCards}
       </div>
