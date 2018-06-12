@@ -14,9 +14,16 @@ class Modal extends Component {
 
     }
 
+    componentDidMount = () => {
+        this.setState(() => {
+            return this.props.edit
+        });
+    }
+
     handleOnSubmit = (e) => {
         e.preventDefault();
-        this.props.passState(this.state);
+        this.props.addRecipe(this.state);
+        this.props.closeModal();
     }
 
     handleOnChange = (e) => {
@@ -40,6 +47,7 @@ class Modal extends Component {
     }
 
     handleId = () => {
+
         this.setState(() => {
             return {
                 id: this.props.id
@@ -68,68 +76,80 @@ class Modal extends Component {
     render() {
         const { edit } = this.props;
 
-        const ingredientList = this.state.ingredients.map((el, i) => {
-            return <div key={i}><li>{el}</li><span onClick={this.handleRemoveIngredient}>X</span></div>
+        // appends ingredients 
+        const editIngredientList = edit.ingredients.map((el, i) => {
+            return <div key={i}><li className='form__listItems'>{el}</li><span onClick={this.handleRemoveIngredient}>X</span></div>
         });
 
-        // if (edit !== undefined) {
-
-        //     var editIngredientList = edit.ingredients.map((el, i) => {
-        //         return <div key={i}><li>{el}</li><span>X</span></div>
-        //     });
-        // }
+        const ingredientList = this.state.ingredients.map((el, i) => {
+            return <div key={i} className='form__listItems'><li>{el}</li><button onClick={this.handleRemoveIngredient}>X</button></div>
+        });
 
         return (
-            <div>
-                <form onSubmit={this.handleOnSubmit}>
+            <div className='form-center'>
+                <form onSubmit={this.handleOnSubmit} className='form'>
                     {/* image */}
-                    <label htmlFor='url'>URL:</label>
+                    <label htmlFor='url' className='label'>URL:</label>
                     <input
                         type='url'
                         onChange={ this.handleOnChange }
                         name='url'
                         id='url'
                         placeholder={this.state.url}
+                        value={ edit.url }
+                        className='form__url'
+                        autoComplete="off"
                     />
 
                     {/* title */}
-                    <label htmlFor='title'>Title:</label>
+                    <label htmlFor='title' className='label'>Title:</label>
                     <input
                         type='text'
                         onChange={ this.handleOnChange }
                         name='title'
                         id='title'
+                        value={ edit.title }
+                        className='form__title'
+                        autoComplete="off"
                     />
 
                     {/* ingredient */}
-                    <label htmlFor='ingredients'>Ingredients:</label>
+                    <label htmlFor='ingredients' className='label'>Ingredients:</label>
                     
                     {/* entered ingredients */}
-                    <ul id='list'>
-                        {edit !== undefined ? editIngredientList : ingredientList}
+                    <ul id='list'  className='form__list'>
+                        {edit && editIngredientList }
                     </ul>
 
-                    <input
-                        type='text'
-                        onChange={ this.handleOnChange }
-                        name='ingredient'
-                        id='ingredient'
-                    />
+                    <div className='form__listActions'>
+                        <input
+                            type='text'
+                            onChange={ this.handleOnChange }
+                            name='ingredient'
+                            id='ingredient'
+                            className='form__listInput'
+                            autoComplete="off"
+                        />
 
-                    {/* add new ingredient input */}
-                    <button
-                        type='button'
-                        onClick={this.handleAddIngredient}
-                    >
-                        +
-                    </button>
+                        {/* add new ingredient input */}
+                        <button
+                            type='button'
+                            onClick={this.handleAddIngredient}
+                            className='form__addListItem'
+                        >
+                            +
+                        </button>
+                    </div>
 
                     {/* instructions to make recipe */}
-                    <label htmlFor='instructions'>Instructions:</label>
+                    <label htmlFor='instructions' className='label'>Instructions:</label>
                     <textarea
                         onChange={ this.handleOnChange }
                         name='instructions'
                         id='instructions'
+                        value={ edit.instructions }
+                        className='form__instructions'
+                        autoComplete="off"
                     >
                     </textarea>
 
@@ -137,16 +157,18 @@ class Modal extends Component {
                     <button
                         type='submit'
                         onClick={ this.handleId }
+                        className='form__addRecipe'
                     >
                         Add Reacipe
                     </button>
 
                     {/* close modal */}
-                    <span
+                    <button
                         onClick={ this.props.closeModal }
+                        className='form__close'
                     >
-                        X
-                    </span>
+                        close
+                    </button>
                 </form>
                
             </div>

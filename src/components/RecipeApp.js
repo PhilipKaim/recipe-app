@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewRecipeButton from './NewRecipeButton';
 import RecipeCard from './RecipeCard';
+import Modal from './Modal';
 
 class RecipeApp extends Component {
   constructor(props) {
@@ -19,6 +20,13 @@ class RecipeApp extends Component {
       ],
       nextId: 1,
       modal: false,
+      edit: {
+        id: '',
+        url: '',
+        ingredients: [],
+        instructions: '',
+        title: ''
+      }
     }
   }
 
@@ -76,17 +84,13 @@ class RecipeApp extends Component {
     }, 300);
   }
 
-  // handleUpdate = (recipe) => {
-  //   this.handleModalOpen();
-    
-
-  //   // for (let i = 0; i < copy.length; i++) {
-  //   //   if (copy[i].id === id) {
-  //   //     copy.splice(i, 1, updatedRecipe);
-  //   //     break;
-  //   //   }
-  //   // }
-  // }
+  handleUpdate = (recipeInfo) => {
+    this.setState(() => {
+      return {
+        edit: recipeInfo
+      }
+    });
+  }
 
   render() {
     const recipeCards = this.state.recipes.map((el, i) => {
@@ -95,6 +99,7 @@ class RecipeApp extends Component {
                 key={i}
                 delete={ this.handleDelete  }
                 update={ this.handleUpdate }
+                openModal={ this.handleModalOpen }
               />
     });
 
@@ -108,7 +113,17 @@ class RecipeApp extends Component {
           id={ this.state.nextId }
           edit={ this.state.edit }
         />
-        {recipeCards}
+        { this.state.modal
+                    &&
+                    <Modal
+                        addRecipe={ this.handleAddRecipe }
+                        closeModal={ this.handleModalClose }
+                        id={ this.state.id }
+                        edit={ this.state.edit }
+                    /> }
+        <div className='grid'>
+          {recipeCards}
+        </div>
       </div>
     );
   }

@@ -1,0 +1,101 @@
+.form-center {
+    display: flex;
+    justify-content: center;
+}
+
+.form__url, .form__title, .form__ingredients, .form__list, .form__listInput, .form__addListItem, .form__instructions, .form__addRecipe, .form__close  {
+    margin: 1rem 0;
+}
+
+.form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    border: solid black 4px;
+    border-radius: 4px;
+    margin: 1rem;
+    padding: 1em;
+    background: #ddd;
+}
+
+.label {
+
+}
+
+.form__url {
+
+}
+
+.form__title {
+
+}
+
+.form__ingredients {
+
+}
+
+.form__list {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+
+    & div {
+        display: flex;
+        align-items: center;
+    }
+
+    & div span {
+        background-color: red;
+        color: white;
+        border-radius: 4px;
+        padding: 0.3em;
+        margin: 0 4px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.form__listActions {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form__listInput {
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.form__addListItem {
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.form__instructions {
+
+}
+
+.form__addRecipe {
+    border-radius: 4px;
+    padding: 0.3em;
+    background-color: green;
+    color: white;
+
+    &:hover {
+        cursor: pointer;
+        background-color: lighten(green, 12%);
+    }
+}
+
+.form__close {
+    border-radius: 4px;
+    padding: 0.3em;
+    background-color: red;
+    color: white;
+
+    &:hover {
+        cursor: pointer;
+        background-color: lighten(red, 12%);
+    }
+}

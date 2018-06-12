@@ -6,9 +6,11 @@ class RecipeCard extends Component {
         this.props.delete(this.props.recipe.id);
     }
 
-    // handleUpdate = () => {
-    //     this.props.update(this.props.recipe);
-    // }
+    handleUpdate = () => {
+        this.props.openModal();
+        const recipeInfo = this.props.recipe;
+        this.props.update(recipeInfo);
+    }
 
     render() {
         const { url, title, ingredients, instructions } = this.props.recipe;
@@ -23,12 +25,12 @@ class RecipeCard extends Component {
 
                 <h1 className='card__title'>{ title }</h1>
 
-                <h3>Ingredients:</h3>
+                <h3 className='card__label'>Ingredients:</h3>
                 <ul className='card__list'>
                     { ingredientList }
                 </ul>
 
-                <h3>Instructions:</h3>
+                <h3 className='card__label'>Instructions:</h3>
                 <p className='card__instructions'>{ instructions }</p>
 
                 <button
