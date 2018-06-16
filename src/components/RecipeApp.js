@@ -4,35 +4,30 @@ import RecipeCard from './RecipeCard';
 import Modal from './Modal';
 import { connect } from "react-redux";
 import { addRecipe } from '../actions/addRecipe';
+import { openModal } from '../actions/openModal';
+import { closeModal } from '../actions/closeModal';
+
 
 class RecipeApp extends Component {
   constructor(props) {
     super(props)
   }
 
-  componentWillMount = () => {
-    localStorage.getItem('state') && this.setState(() => {
-      return {
-        recipes: JSON.parse(localStorage.getItem('state'))
-      }
-    });
-  }
+  // componentWillMount = () => {
+  //   localStorage.getItem('state') && this.setState(() => {
+  //     return {
+  //       recipes: JSON.parse(localStorage.getItem('state'))
+  //     }
+  //   });
+  // }
 
 
   handleModalOpen = () => {
-    this.setState(() => {
-      return {
-        modal: true
-      }
-    });
+    this.props.openModal();
   }
 
   handleModalClose = () => {
-    this.setState(() => {
-      return {
-        modal: false
-      }
-    });
+    this.props.closeModal();
   }
 
   handleAddRecipe = (state) => {
@@ -77,7 +72,7 @@ class RecipeApp extends Component {
         <NewRecipeButton
           openModal={ this.handleModalOpen }
         />
-        { this.state.modal
+        { this.props.modal
                     &&
                     <Modal
                         addRecipe={ this.handleAddRecipe }
@@ -93,8 +88,9 @@ class RecipeApp extends Component {
 
 function mapStateToProps(reduxState) {
   return {
-    recipes: reduxState.recipes
+    recipes: reduxState.recipes,
+    modal: reduxState.modal
   };
 }
 
-export default connect(mapStateToProps, { addRecipe })(RecipeApp);
+export default connect(mapStateToProps, { addRecipe, openModal, closeModal })(RecipeApp);

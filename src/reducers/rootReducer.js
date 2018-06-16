@@ -1,6 +1,8 @@
 import { ADD_RECIPE } from '../actions/addRecipe';
 import { EDIT_RECIPE } from '../actions/editRecipe';
 import { DELETE_RECIPE } from '../actions/deleteRecipe';
+import { OPEN_MODAL } from '../actions/openModal';
+import { CLOSE_MODAL } from '../actions/closeModal';
 
 const initialState = {
     recipes: [
@@ -19,8 +21,24 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
     switch(action.type) {
+        case OPEN_MODAL:
+            var newState = { ...state };
+            newState.modal = true;
+
+            return {
+                ...newState
+            };
+
+        case CLOSE_MODAL:
+            var newState = { ...state };
+            newState.modal = false;
+
+            return {
+                ...newState
+            };
+
         case ADD_RECIPE:
-            const newState = { ...state };
+            var newState = { ...state };
             newState.recipes.push(action.recipe);
             newState.nextId++;
 
