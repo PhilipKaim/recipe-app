@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 class Modal extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class Modal extends Component {
         e.preventDefault();
         this.props.addRecipe(this.state);
         this.props.closeModal();
+        console.log(this.state);
 
         // Clears form and ingredients list in form
         e.target.reset();
@@ -55,7 +57,8 @@ class Modal extends Component {
     }
 
     handleId = () => {
-
+        console.log(this.props.id);
+        
         this.setState(() => {
             return {
                 id: this.props.id
@@ -63,31 +66,25 @@ class Modal extends Component {
         });
     }
 
-    // REMOVING DELETE BUTTON WHEN DELETING FROM TOP DOWN!!!!
-    handleRemoveIngredient = (e) => {
+    // // REMOVING DELETE BUTTON WHEN DELETING FROM TOP DOWN!!!!
+    // handleRemoveIngredient = (e) => {
 
-        const listItem = e.target.parentNode.childNodes[0].innerHTML;
+    //     const listItem = e.target.parentNode.childNodes[0].innerHTML;
 
-        const ingredients = this.state.ingredients.filter(el => {
-            return el !== listItem;
-        });
+    //     const ingredients = this.state.ingredients.filter(el => {
+    //         return el !== listItem;
+    //     });
         
-        this.setState(() => {
-            return {
-                ingredients
-            }
-        })
+    //     this.setState(() => {
+    //         return {
+    //             ingredients
+    //         }
+    //     })
 
-        e.target.remove();
-    }
+    //     e.target.remove();
+    // }
 
     render() {
-        // const { edit } = this.props;
-
-        // // appends ingredients 
-        // const editIngredientList = edit.ingredients.map((el, i) => {
-        //     return <div key={i}><li className='form__listItems'>{el}</li><span onClick={this.handleRemoveIngredient}>X</span></div>
-        // });
 
         const ingredientList = this.state.ingredients.map((el, i) => {
             return <div key={i} className='form__listItems'><li>{el}</li><button onClick={this.handleRemoveIngredient}>X</button></div>
@@ -180,4 +177,10 @@ class Modal extends Component {
     }
 }
 
-export default Modal;
+function mapStateToProps(reduxState) {
+    return {
+      id: reduxState.nextId
+    };
+  }
+  
+export default connect(mapStateToProps)(Modal);

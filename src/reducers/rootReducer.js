@@ -1,3 +1,7 @@
+import { ADD_RECIPE } from '../actions/addRecipe';
+import { EDIT_RECIPE } from '../actions/editRecipe';
+import { DELETE_RECIPE } from '../actions/deleteRecipe';
+
 const initialState = {
     recipes: [
         {
@@ -11,17 +15,25 @@ const initialState = {
     ],
     nextId: 1,
     modal: false,
-    edit: {
-        id: '',
-        url: '',
-        ingredients: [],
-        instructions: '',
-        title: ''
-    }  
 }
 
 export default function rootReducer(state = initialState, action) {
     switch(action.type) {
-        
+        case ADD_RECIPE:
+            const newState = { ...state };
+            newState.recipes.push(action.recipe);
+            newState.nextId++;
+
+            return {
+                ...newState
+            };
+
+            // setTimeout(() => {
+            // localStorage.setItem('state', JSON.stringify(state.recipes));
+            // }, 1000);
+        case EDIT_RECIPE:
+        case DELETE_RECIPE:
+        default: 
+            return state;
     }
 }

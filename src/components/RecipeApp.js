@@ -2,32 +2,12 @@ import React, { Component } from 'react';
 import NewRecipeButton from './NewRecipeButton';
 import RecipeCard from './RecipeCard';
 import Modal from './Modal';
+import { connect } from "react-redux";
+import { addRecipe } from '../actions/addRecipe';
 
 class RecipeApp extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      recipes: [
-        {
-            id: 0,
-            url: './images/spagettii.jpeg',
-            alt: 'spagettii',
-            ingredients: ['Pasta', 'Tomato Sauce', 'Meat Balls'],
-            instructions: 'Boil water. Add pasta. Cook pasta till tender. Heat meatballs and tomato sace in large pot. Mix pasta and meat sacue together. Enjoy!',
-            title: 'Spaghetti'
-        }
-      ],
-      nextId: 1,
-      modal: false,
-      edit: {
-        id: '',
-        url: '',
-        ingredients: [],
-        instructions: '',
-        title: ''
-      }
-    }
   }
 
   componentWillMount = () => {
@@ -56,18 +36,7 @@ class RecipeApp extends Component {
   }
 
   handleAddRecipe = (state) => {
-    const recipes = this.state.recipes.concat(state);
-
-    this.setState((prevState) => {
-      return {
-        recipes,
-        nextId: prevState.nextId + 1
-      }
-    });
-
-    setTimeout(() => {
-      localStorage.setItem('state', JSON.stringify(this.state.recipes));
-    }, 1000);
+    this.props.addRecipe(state);
   }
 
   handleDelete = (id) => {
@@ -93,7 +62,7 @@ class RecipeApp extends Component {
   }
 
   render() {
-    const recipeCards = this.state.recipes.map((el, i) => {
+    const recipeCards = this.props.recipes.map((el, i) => {
       return <RecipeCard
                 recipe={el} 
                 key={i}
@@ -106,20 +75,13 @@ class RecipeApp extends Component {
     return (
       <div>
         <NewRecipeButton
-          addRecipe={ this.handleAddRecipe }
-          modal={this.state.modal}
           openModal={ this.handleModalOpen }
-          closeModal={ this.handleModalClose }
-          id={ this.state.nextId }
-          edit={ this.state.edit }
         />
         { this.state.modal
                     &&
                     <Modal
                         addRecipe={ this.handleAddRecipe }
                         closeModal={ this.handleModalClose }
-                        id={ this.state.id }
-                        edit={ this.state.edit }
                     /> }
         <div className='grid'>
           {recipeCards}
@@ -129,4 +91,10 @@ class RecipeApp extends Component {
   }
 }
 
-export default RecipeApp;
+function mapStateToProps(reduxState) {
+  return {
+    recipes: reduxState.recipes
+  };
+}
+
+export default connect(mapStateToProps, { addRecipe })(RecipeApp);
