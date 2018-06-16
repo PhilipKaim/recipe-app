@@ -24,6 +24,14 @@ class Modal extends Component {
         e.preventDefault();
         this.props.addRecipe(this.state);
         this.props.closeModal();
+
+        // Clears form and ingredients list in form
+        e.target.reset();
+        this.setState(() => {
+            return {
+                ingredients: []
+            }
+        });
     }
 
     handleOnChange = (e) => {
@@ -74,12 +82,12 @@ class Modal extends Component {
     }
 
     render() {
-        const { edit } = this.props;
+        // const { edit } = this.props;
 
-        // appends ingredients 
-        const editIngredientList = edit.ingredients.map((el, i) => {
-            return <div key={i}><li className='form__listItems'>{el}</li><span onClick={this.handleRemoveIngredient}>X</span></div>
-        });
+        // // appends ingredients 
+        // const editIngredientList = edit.ingredients.map((el, i) => {
+        //     return <div key={i}><li className='form__listItems'>{el}</li><span onClick={this.handleRemoveIngredient}>X</span></div>
+        // });
 
         const ingredientList = this.state.ingredients.map((el, i) => {
             return <div key={i} className='form__listItems'><li>{el}</li><button onClick={this.handleRemoveIngredient}>X</button></div>
@@ -95,8 +103,6 @@ class Modal extends Component {
                         onChange={ this.handleOnChange }
                         name='url'
                         id='url'
-                        placeholder={this.state.url}
-                        value={ edit.url }
                         className='form__url'
                         autoComplete="off"
                     />
@@ -108,7 +114,6 @@ class Modal extends Component {
                         onChange={ this.handleOnChange }
                         name='title'
                         id='title'
-                        value={ edit.title }
                         className='form__title'
                         autoComplete="off"
                     />
@@ -118,7 +123,7 @@ class Modal extends Component {
                     
                     {/* entered ingredients */}
                     <ul id='list'  className='form__list'>
-                        {edit && editIngredientList }
+                        { ingredientList }
                     </ul>
 
                     <div className='form__listActions'>
@@ -147,7 +152,6 @@ class Modal extends Component {
                         onChange={ this.handleOnChange }
                         name='instructions'
                         id='instructions'
-                        value={ edit.instructions }
                         className='form__instructions'
                         autoComplete="off"
                     >
