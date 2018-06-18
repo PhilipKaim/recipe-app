@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { deleteRecipe } from '../actions/deleteRecipe';
 
 class RecipeCard extends Component {
 
     handleRemove = () => {
-        this.props.delete(this.props.recipe.id);
+        this.props.deleteRecipe(this.props.recipe.id);
     }
 
     handleEdit = () => {
         this.props.openModal();
         const recipeInfo = this.props.recipe;
-        this.props.edit(recipeInfo);
+        this.props.edit(recipeInfo, true);
     }
 
     render() {
@@ -51,4 +53,10 @@ class RecipeCard extends Component {
     }
 }
 
-export default RecipeCard;
+function mapStateToProps(reduxState) {
+    return {
+      recipes: reduxState.recipes
+    };
+}
+  
+  export default connect(mapStateToProps, { deleteRecipe })(RecipeCard);

@@ -12,17 +12,20 @@ class Modal extends Component {
             ingredient: '',
             ingredients: [],
             id: undefined,
-            instructions: ''
+            instructions: '',
+            editing: false
         }
 
     }
 
     componentDidMount = () => {
         const edit = this.props.edit;
-
+        
+        // REDUX STATE TAKES TOO LONG TO UPDATE TO GET CORRECT VALUE OF EDITING!!!!
         this.setState(() => {
             return {
-                ...edit
+                ...edit,
+                editing: this.props.editing
             }
         });
     }
@@ -70,37 +73,43 @@ class Modal extends Component {
     }
 
     handleId = () => {
-        console.log(this.props.id);
+        
+      if (this.props.editing === false) {
+        this.setState(() => {
+            return {
+                id: this.props.nextId
+            }
+        });
+      } else {
+        this.setState(() => {
+            return {
+                id: this.props.edit.id
+            }
+        });
+      }
+    }
+
+    // REMOVING DELETE BUTTON WHEN DELETING FROM TOP DOWN!!!!
+    handleRemoveIngredient = (e) => {
+        const listItem = e.target.parentNode.childNodes[0].innerText;
+
+        const ingredients = this.state.ingredients.filter(el => {
+            return el !== listItem;
+        });
         
         this.setState(() => {
             return {
-                id: this.props.id
+                ingredients
             }
-        });
+        })
+
+        e.target.remove();
     }
-
-    // // REMOVING DELETE BUTTON WHEN DELETING FROM TOP DOWN!!!!
-    // handleRemoveIngredient = (e) => {
-
-    //     const listItem = e.target.parentNode.childNodes[0].innerHTML;
-
-    //     const ingredients = this.state.ingredients.filter(el => {
-    //         return el !== listItem;
-    //     });
-        
-    //     this.setState(() => {
-    //         return {
-    //             ingredients
-    //         }
-    //     })
-
-    //     e.target.remove();
-    // }
 
     render() {
 
         const ingredientList = this.state.ingredients.map((el, i) => {
-            return <div key={i} className='form__listItems'><li>{el}</li><button onClick={this.handleRemoveIngredient}>X</button></div>
+            return <div key={i} className='form__listItems'><li>{el}</li><i onClick={this.handleRemoveIngredient} className='far fa-trash-alt'></i></div>
         });
 
         return (
@@ -109,7 +118,7 @@ class Modal extends Component {
                     {/* image */}
                     <label htmlFor='url' className='label'>URL:</label>
                     <input
-                        type='url'
+                        type='text'
                         onChange={ this.handleOnChange }
                         name='url'
                         id='url'
@@ -177,7 +186,7 @@ class Modal extends Component {
                         onClick={ this.handleId }
                         className='form__addRecipe'
                     >
-                        Add Reacipe
+                        { this.state.editing ? 'Edit' : 'Add' } Reacipe
                     </button>
 
                     {/* close modal */}
@@ -196,8 +205,9 @@ class Modal extends Component {
 
 function mapStateToProps(reduxState) {
     return {
-      id: reduxState.nextId,
-      edit: reduxState.edit
+      nextId: reduxState.nextId,
+      edit: reduxState.edit,
+      editing: reduxState.editing
     };
   }
   

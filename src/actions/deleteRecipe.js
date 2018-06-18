@@ -1,7 +1,8 @@
-export const DELETE_RECIPE = 'ADD_RECIPE';
+export const DELETE_RECIPE = 'DELETE_RECIPE';
 
-export function addRecipe(id) {
+export function deleteRecipe(id) {
     return {
-        type: DELETE_RECIPE
+        type: DELETE_RECIPE,
+        id
     }
 }

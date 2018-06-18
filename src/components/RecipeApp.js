@@ -11,7 +11,7 @@ import { closeModal } from '../actions/closeModal';
 
 class RecipeApp extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   // componentWillMount = () => {
@@ -35,22 +35,22 @@ class RecipeApp extends Component {
     this.props.addRecipe(state);
   }
 
-  handleDelete = (id) => {
-    const copy = this.state.recipes;
-    const recipes = copy.filter(el => el.id !== id);
-    this.setState(() => {
-      return {
-        recipes
-      }
-    });
+  // handleDelete = (id) => {
+  //   const copy = this.state.recipes;
+  //   const recipes = copy.filter(el => el.id !== id);
+  //   this.setState(() => {
+  //     return {
+  //       recipes
+  //     }
+  //   });
 
-    setTimeout(() => {
-      localStorage.setItem('state', JSON.stringify(this.state.recipes));
-    }, 300);
-  }
+  //   setTimeout(() => {
+  //     localStorage.setItem('state', JSON.stringify(this.state.recipes));
+  //   }, 300);
+  // }
 
-  handleEdit = (recipeInfo) => {
-    this.props.editRecipe(recipeInfo);
+  handleEdit = (recipeInfo, editing) => {
+    this.props.editRecipe(recipeInfo, editing);
   }
 
   render() {
@@ -86,7 +86,7 @@ class RecipeApp extends Component {
 function mapStateToProps(reduxState) {
   return {
     recipes: reduxState.recipes,
-    modal: reduxState.modal
+    modal: reduxState.modal,
   };
 }
 
