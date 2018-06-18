@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { editRecipe } from '../actions/editRecipe';
 
 class Modal extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            url: undefined,
-            title: undefined,
+            url: '',
+            title: '',
             ingredient: '',
             ingredients: [],
-            id: undefined
+            id: undefined,
+            instructions: ''
         }
 
     }
 
     componentDidMount = () => {
+        const edit = this.props.edit;
+
         this.setState(() => {
-            return this.props.edit
+            return {
+                ...edit
+            }
         });
     }
 
@@ -25,13 +31,17 @@ class Modal extends Component {
         e.preventDefault();
         this.props.addRecipe(this.state);
         this.props.closeModal();
-        console.log(this.state);
 
         // Clears form and ingredients list in form
         e.target.reset();
         this.setState(() => {
             return {
-                ingredients: []
+                url: '',
+                title: '',
+                ingredient: '',
+                ingredients: [],
+                id: undefined,
+                instructions: ''
             }
         });
     }
@@ -46,6 +56,9 @@ class Modal extends Component {
     }
 
     handleAddIngredient = () => {
+        const ingredientInput = document.querySelector('#ingredientInput');
+        ingredientInput.value = '';
+
         const copy = [...this.state.ingredients];
         const ingredients = copy.concat(this.state.ingredient);
         this.setState(() => {
@@ -102,6 +115,7 @@ class Modal extends Component {
                         id='url'
                         className='form__url'
                         autoComplete="off"
+                        value={this.state.url}
                     />
 
                     {/* title */}
@@ -113,6 +127,7 @@ class Modal extends Component {
                         id='title'
                         className='form__title'
                         autoComplete="off"
+                        value={this.state.title}
                     />
 
                     {/* ingredient */}
@@ -131,6 +146,7 @@ class Modal extends Component {
                             id='ingredient'
                             className='form__listInput'
                             autoComplete="off"
+                            id='ingredientInput'
                         />
 
                         {/* add new ingredient input */}
@@ -151,6 +167,7 @@ class Modal extends Component {
                         id='instructions'
                         className='form__instructions'
                         autoComplete="off"
+                        value={this.state.instructions}
                     >
                     </textarea>
 
@@ -168,7 +185,7 @@ class Modal extends Component {
                         onClick={ this.props.closeModal }
                         className='form__close'
                     >
-                        close
+                        Close
                     </button>
                 </form>
                
@@ -179,8 +196,9 @@ class Modal extends Component {
 
 function mapStateToProps(reduxState) {
     return {
-      id: reduxState.nextId
+      id: reduxState.nextId,
+      edit: reduxState.edit
     };
   }
   
-export default connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps, editRecipe)(Modal);

@@ -1,7 +1,8 @@
-export const EDIT_RECIPE = 'ADD_RECIPE';
+export const EDIT_RECIPE = 'EDIT_RECIPE';
 
-export function addRecipe(id) {
+export function editRecipe(recipe) {
     return {
-        type: EDIT_RECIPE
+        type: EDIT_RECIPE,
+        recipe
     }
 }

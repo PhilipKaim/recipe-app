@@ -6,10 +6,10 @@ class RecipeCard extends Component {
         this.props.delete(this.props.recipe.id);
     }
 
-    handleUpdate = () => {
+    handleEdit = () => {
         this.props.openModal();
         const recipeInfo = this.props.recipe;
-        this.props.update(recipeInfo);
+        this.props.edit(recipeInfo);
     }
 
     render() {
@@ -34,7 +34,7 @@ class RecipeCard extends Component {
                 <p className='card__instructions'>{ instructions }</p>
 
                 <button
-                    onClick={ this.handleUpdate }
+                    onClick={ this.handleEdit }
                     className='card__edit'
                 >
                     Edit

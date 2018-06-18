@@ -17,6 +17,14 @@ const initialState = {
     ],
     nextId: 1,
     modal: false,
+    edit: {
+        id: undefined,
+        url: '',
+        alt: '',
+        ingredients: [],
+        instructions: '',
+        title: ''
+    }
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -39,8 +47,16 @@ export default function rootReducer(state = initialState, action) {
 
         case ADD_RECIPE:
             var newState = { ...state };
-            newState.recipes.push(action.recipe);
-            newState.nextId++;
+            
+            // SHOULD NOT BE INCREMENTING ID ON EDIT!!!!
+            if (newState.recipes.some(el => el.id === action.recipe.id - 1)) {
+                const index = newState.recipes.findIndex((el) => el.id === action.recipe.id - 1);
+                newState.recipes.splice(index, 1, action.recipe);
+            } else {
+                newState.recipes.push(action.recipe);
+                newState.nextId++;
+                console.log('NO edit');
+            }
 
             return {
                 ...newState
@@ -50,6 +66,13 @@ export default function rootReducer(state = initialState, action) {
             // localStorage.setItem('state', JSON.stringify(state.recipes));
             // }, 1000);
         case EDIT_RECIPE:
+            var newState = { ...state };
+            newState.edit = action.recipe;
+
+            return {
+                ...newState
+            };
+
         case DELETE_RECIPE:
         default: 
             return state;

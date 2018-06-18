@@ -4,6 +4,7 @@ import RecipeCard from './RecipeCard';
 import Modal from './Modal';
 import { connect } from "react-redux";
 import { addRecipe } from '../actions/addRecipe';
+import { editRecipe } from '../actions/editRecipe';
 import { openModal } from '../actions/openModal';
 import { closeModal } from '../actions/closeModal';
 
@@ -48,12 +49,8 @@ class RecipeApp extends Component {
     }, 300);
   }
 
-  handleUpdate = (recipeInfo) => {
-    this.setState(() => {
-      return {
-        edit: recipeInfo
-      }
-    });
+  handleEdit = (recipeInfo) => {
+    this.props.editRecipe(recipeInfo);
   }
 
   render() {
@@ -62,7 +59,7 @@ class RecipeApp extends Component {
                 recipe={el} 
                 key={i}
                 delete={ this.handleDelete  }
-                update={ this.handleUpdate }
+                edit={ this.handleEdit }
                 openModal={ this.handleModalOpen }
               />
     });
@@ -93,4 +90,4 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default connect(mapStateToProps, { addRecipe, openModal, closeModal })(RecipeApp);
+export default connect(mapStateToProps, { addRecipe, editRecipe ,openModal, closeModal })(RecipeApp);
