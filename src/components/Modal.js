@@ -33,13 +33,25 @@ class Modal extends Component {
     handleOnSubmit = (e) => {
         e.preventDefault();
 
+        // capitalize each word in title
+        let split = this.state.title.split(' ');
+        let cap = split.map(el => el.charAt(0).toUpperCase() + el.split(1)).join(' ');
+
+        let newState = this.state;
+        newState.title = cap;
+
+        this.setState(() => {
+            return {
+                ...newState
+            }
+        });
+        
+
         if (this.props.editing === false) {
-            console.log('add');
             
             this.props.addRecipe(this.state);
         } else {
             
-            console.log('edit');
             this.props.editRecipe(this.state);
         }
         

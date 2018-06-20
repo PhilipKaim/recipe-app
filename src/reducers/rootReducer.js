@@ -57,10 +57,7 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...newState
             };
-
-            // setTimeout(() => {
-            // localStorage.setItem('state', JSON.stringify(state.recipes));
-            // }, 1000);
+            
         case EDIT_RECIPE:
             var newState = { ...state };
             newState.edit = action.recipe;
