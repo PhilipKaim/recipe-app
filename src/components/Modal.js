@@ -32,7 +32,17 @@ class Modal extends Component {
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        this.props.addRecipe(this.state);
+
+        if (this.props.editing === false) {
+            console.log('add');
+            
+            this.props.addRecipe(this.state);
+        } else {
+            
+            console.log('edit');
+            this.props.editRecipe(this.state);
+        }
+        
         this.props.closeModal();
 
         // Clears form and ingredients list in form
@@ -73,7 +83,6 @@ class Modal extends Component {
     }
 
     handleId = () => {
-        
       if (this.props.editing === false) {
         this.setState(() => {
             return {
@@ -211,4 +220,4 @@ function mapStateToProps(reduxState) {
     };
   }
   
-export default connect(mapStateToProps, editRecipe)(Modal);
+export default connect(mapStateToProps, { editRecipe })(Modal);

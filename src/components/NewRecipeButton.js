@@ -10,7 +10,7 @@ class NewRecipeButton extends Component {
     handleNewRecipe = () => {
         this.props.openModal();
 
-        this.props.editRecipe(null, false);
+        this.props.editRecipe(null , false);
     }
 
     render() {

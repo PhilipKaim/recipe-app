@@ -51,15 +51,8 @@ export default function rootReducer(state = initialState, action) {
         case ADD_RECIPE:
             var newState = { ...state };
         
-            if (newState.recipes.some(el => el.id === action.recipe.id)) {
-                const index = newState.recipes.findIndex((el) => el.id === action.recipe.id);
-                newState.recipes.splice(index, 1, action.recipe);
-                console.log('Edit');
-            } else {
-                newState.recipes.push(action.recipe);
-                newState.nextId++;
-                console.log('NO Edit');
-            }
+            newState.recipes.push(action.recipe);
+            newState.nextId++;
 
             return {
                 ...newState
@@ -71,6 +64,12 @@ export default function rootReducer(state = initialState, action) {
         case EDIT_RECIPE:
             var newState = { ...state };
             newState.edit = action.recipe;
+            let index;
+
+            if (state.editing === true) {
+                index = newState.recipes.findIndex((el) => el.id === action.recipe.id);
+                newState.recipes.splice(index, 1, action.recipe);
+            }
 
             return {
                 ...newState,
