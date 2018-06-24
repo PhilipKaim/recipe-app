@@ -2,26 +2,16 @@ import React, { Component } from 'react';
 import NewRecipeButton from './NewRecipeButton';
 import RecipeCard from './RecipeCard';
 import Modal from './Modal';
+import Search from './Search';
 import { connect } from "react-redux";
-import { addRecipe } from '../actions/addRecipe';
-import { editRecipe } from '../actions/editRecipe';
-import { openModal } from '../actions/openModal';
-import { closeModal } from '../actions/closeModal';
+import { addRecipe, editRecipe } from '../actions/edit';
+import { closeModal, openModal } from '../actions/modal';
 
 
 class RecipeApp extends Component {
   constructor(props) {
     super(props);
   }
-
-  // componentWillMount = () => {
-  //   localStorage.getItem('state') && this.setState(() => {
-  //     return {
-  //       recipes: JSON.parse(localStorage.getItem('state'))
-  //     }
-  //   });
-  // }
-
 
   handleModalOpen = () => {
     this.props.openModal();
@@ -34,20 +24,6 @@ class RecipeApp extends Component {
   handleAddRecipe = (state) => {
     this.props.addRecipe(state);
   }
-
-  // handleDelete = (id) => {
-  //   const copy = this.state.recipes;
-  //   const recipes = copy.filter(el => el.id !== id);
-  //   this.setState(() => {
-  //     return {
-  //       recipes
-  //     }
-  //   });
-
-  //   setTimeout(() => {
-  //     localStorage.setItem('state', JSON.stringify(this.state.recipes));
-  //   }, 300);
-  // }
 
   handleEdit = (recipeInfo, editing) => {
     this.props.editRecipe(recipeInfo, editing);
@@ -75,6 +51,7 @@ class RecipeApp extends Component {
                         addRecipe={ this.handleAddRecipe }
                         closeModal={ this.handleModalClose }
                     /> }
+        <Search />            
         <div className='grid'>
           {recipeCards}
         </div>

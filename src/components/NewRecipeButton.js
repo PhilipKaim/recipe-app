@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { editRecipe } from '../actions/editRecipe';
+import { editRecipe } from '../actions/edit';
 
 class NewRecipeButton extends Component {
     constructor(props) {

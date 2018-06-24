@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { deleteRecipe } from '../actions/deleteRecipe';
+import { deleteRecipe } from '../actions/edit';
 
 class RecipeCard extends Component {
 

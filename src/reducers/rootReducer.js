@@ -1,8 +1,6 @@
-import { ADD_RECIPE } from '../actions/addRecipe';
-import { EDIT_RECIPE } from '../actions/editRecipe';
-import { DELETE_RECIPE } from '../actions/deleteRecipe';
-import { OPEN_MODAL } from '../actions/openModal';
-import { CLOSE_MODAL } from '../actions/closeModal';
+import { ADD_RECIPE, EDIT_RECIPE, DELETE_RECIPE } from '../actions/edit';
+import { OPEN_MODAL, CLOSE_MODAL } from '../actions/modal';
+import { SEARCH_RECIPE } from '../actions/searchRecipe';
 
 const initialState = {
     recipes: [
@@ -75,13 +73,36 @@ export default function rootReducer(state = initialState, action) {
 
         case DELETE_RECIPE:
             var newState = { ...state };
-            const recipes = newState.recipes.filter(el => el.id !== action.id);
+            let recipes = newState.recipes.filter(el => el.id !== action.id);
             newState.recipes = recipes;
 
             return {
                 ...newState
-            }
+            };
 
+        case SEARCH_RECIPE:
+            var newState = { ...state };
+            const recipes_to_remove = action.recipeTitles;
+            // var b;
+
+            // if (recipes_to_remove.length > 0) {
+            //     for (let prop in recipes_to_remove) {
+            //         let id = recipes_to_remove[prop].id;
+    
+            //         b = newState.recipes.filter(el => el.id !== id);
+            //     }
+            // } else {
+            //     return;
+            // }
+
+            // console.log(b);
+            
+            // newState.recipes = b;
+
+            // return {
+            //     ...newState
+            // };
+            
         default: 
             return state;
     }
