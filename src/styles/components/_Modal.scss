@@ -18,21 +18,31 @@
     background: #ddd;
 }
 
-.label {
+// .label {
 
+// }
+
+.inline {
+    display: inline;
 }
 
-.form__url {
-
+.form__image {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.form__title {
+// .form__url {
 
-}
+// }
 
-.form__ingredients {
+// .form__title {
 
-}
+// }
+
+// .form__ingredients {
+
+// }
 
 .form__list {
     display: grid;

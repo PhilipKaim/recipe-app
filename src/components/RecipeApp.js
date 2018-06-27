@@ -51,7 +51,7 @@ class RecipeApp extends Component {
                         addRecipe={ this.handleAddRecipe }
                         closeModal={ this.handleModalClose }
                     /> }
-        <Search />            
+        {/* <Search />             */}
         <div className='grid'>
           {recipeCards}
         </div>

@@ -20,8 +20,7 @@ class Modal extends Component {
 
     componentDidMount = () => {
         const edit = this.props.edit;
-        
-        // REDUX STATE TAKES TOO LONG TO UPDATE TO GET CORRECT VALUE OF EDITING!!!!
+
         this.setState(() => {
             return {
                 ...edit,
@@ -72,6 +71,19 @@ class Modal extends Component {
     }
 
     handleOnChange = (e) => {
+
+        // file from computer
+
+        // let binaryData = [];
+        // binaryData.push(e.target.value);
+        // let url = window.URL.createObjectURL(new Blob(binaryData));
+
+        // // window.URL = window.URL || window.webkitURL || window.mozURL;
+        // // let url = URL.createObjectURL(e.target.value);
+        // console.log(url);
+        
+        
+
         e.persist();
         this.setState(() => {
             return {
@@ -137,19 +149,38 @@ class Modal extends Component {
             <div className='form-center'>
                 <form onSubmit={this.handleOnSubmit} className='form'>
                     {/* image */}
-                    <label htmlFor='url' className='label'>URL:</label>
+                    <label htmlFor='url' className='label inline'>URL:</label>
                     <input
-                        type='text'
-                        onChange={ this.handleOnChange }
-                        name='url'
-                        id='url'
-                        className='form__url'
-                        autoComplete="off"
-                        value={this.state.url}
+                            type='text'
+                            onChange={ this.handleOnChange }
+                            name='url'
+                            id='url'
+                            className='form__url'
+                            autoComplete="off"
+                            value={this.state.url}
                     />
+                    {/* <div className='form__image'>
+                        <input
+                            type='url'
+                            onChange={ this.handleOnChange }
+                            name='url'
+                            id='url'
+                            className='form__url'
+                            autoComplete="off"
+                            value={this.state.url}
+                        />
+                        <p>OR</p>
+                        <input
+                            type='file'
+                            onChange={ this.handleOnChange }
+                            name='url'
+                            id='file'
+                            className='form__file'
+                        />
+                    </div> */}
 
                     {/* title */}
-                    <label htmlFor='title' className='label'>Title:</label>
+                    <label htmlFor='title' className='label inline'>Title:</label>
                     <input
                         type='text'
                         onChange={ this.handleOnChange }

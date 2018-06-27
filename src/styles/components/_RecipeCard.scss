@@ -14,9 +14,10 @@
     text-align: center;
 }
 
-// .card__list {
-
-// }
+.card__list {
+    max-height: 120px;
+    overflow-y: auto;
+}
 
 .card__label {
     padding-left: 1rem;
@@ -24,6 +25,9 @@
 
 .card__instructions {
     padding: 0 1rem;
+    max-height: 120px;
+    overflow-y: auto;
+    word-break: break-all;
 }
 
 .card__edit {
