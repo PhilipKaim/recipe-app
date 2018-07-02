@@ -15,8 +15,8 @@ class NewRecipeButton extends Component {
 
     render() {
         return (
-            <div>
-                <button onClick={ this.handleNewRecipe }>+ New Recipe</button>
+            <div className='newContainer'>
+                <button onClick={ this.handleNewRecipe } className='newBtn'>+ New Recipe</button>
             </div>
         );
     }

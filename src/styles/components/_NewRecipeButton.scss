@@ -1,0 +1,29 @@
+.newContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.newBtn {
+    border: none;
+    padding: 1em;
+    background-color: lighten(#57AD68, 30%);
+    min-width: 300px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+        background-color: lighten(#57AD68, 20%);
+    }
+
+    &:active {
+        transform: translateY(2px);
+        outline: none;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
